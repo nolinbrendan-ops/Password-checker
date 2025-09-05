@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 HTML = '''
 <!doctype html>
-<title>Is Your password strong enought?</title>
+<title>Is Your password strong enough?</title>
 <style>
     body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f7f7f7; }
     .center-box {
@@ -20,6 +20,7 @@ HTML = '''
         border-radius: 5px;
         border: 1px solid #ccc;
     }
+    
     input[type="submit"] {
         padding: 0.5rem 1rem;
         border-radius: 5px;
@@ -29,6 +30,7 @@ HTML = '''
         cursor: pointer;
     }
 </style>
+
 <div class="center-box">
     <h2>Check Your Password Strength</h2>
     <form method="post">
@@ -44,7 +46,9 @@ HTML = '''
 def check_strength(password):
     if len(password) < 6:
         return "Weak"
+   
     elif len(password) < 10:
+        
         return "Medium"
     else:
         return "Strong"
@@ -58,4 +62,5 @@ def index():
     return render_template_string(HTML, strength=strength)
 
 if __name__ == '__main__':
+
     app.run(debug=True)
