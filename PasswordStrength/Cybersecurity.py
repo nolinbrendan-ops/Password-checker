@@ -2,7 +2,10 @@ from flask import Flask, render_template_string, request
 
 app = Flask(__name__)
 
+# HTML template for the web page
 HTML = '''
+
+
 <!doctype html>
 <title>Is Your password strong enough?</title>
 <style>
@@ -14,13 +17,13 @@ HTML = '''
         box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         text-align: center;
     }
+
     input[type="password"] {
         padding: 0.5rem;
         margin-right: 0.5rem;
         border-radius: 5px;
         border: 1px solid #ccc;
     }
-    
     input[type="submit"] {
         padding: 0.5rem 1rem;
         border-radius: 5px;
@@ -30,7 +33,6 @@ HTML = '''
         cursor: pointer;
     }
 </style>
-
 <div class="center-box">
     <h2>Check Your Password Strength</h2>
     <form method="post">
@@ -43,15 +45,17 @@ HTML = '''
 </div>
 '''
 
+# Simple password strength checking function
 def check_strength(password):
     if len(password) < 6:
         return "Weak"
-   
     elif len(password) < 10:
-        
         return "Medium"
     else:
         return "Strong"
+    
+
+# route to handle form submission and then displays the result
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -59,8 +63,8 @@ def index():
     if request.method == 'POST':
         pwd = request.form['password']
         strength = check_strength(pwd)
+
     return render_template_string(HTML, strength=strength)
-
+# runs the application
 if __name__ == '__main__':
-
     app.run(debug=True)
